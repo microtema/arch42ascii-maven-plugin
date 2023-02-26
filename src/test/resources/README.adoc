@@ -1,0 +1,11 @@
+= {{appTitle}}
+
+image:https://sonarqube.apps.ocp4pbk.versatel.local/api/project_badges/measure?project=t2j-crm-order-assignment&metric=alert_status&token=35537dc40271ab99f46dc634ca72df79b3346a8f["Quality Gate"] image:https://sonarqube.apps.ocp4pbk.versatel.local/api/project_badges/measure?project=t2j-crm-order-assignment&metric=coverage&token=35537dc40271ab99f46dc634ca72df79b3346a8f["Coverage"] image:https://sonarqube.apps.ocp4pbk.versatel.local/api/project_badges/measure?project=t2j-crm-order-assignment&metric=sqale_rating&token=35537dc40271ab99f46dc634ca72df79b3346a8f["Maintainability"]  image:https://sonarqube.apps.ocp4pbk.versatel.local/api/project_badges/measure?project=t2j-crm-order-assignment&metric=security_rating&token=35537dc40271ab99f46dc634ca72df79b3346a8f["Security Gate"] image:https://sonarqube.apps.ocp4pbk.versatel.local/api/project_badges/measure?project=t2j-crm-order-assignment&metric=reliability_rating&token=35537dc40271ab99f46dc634ca72df79b3346a8f["Reliability Rating"]
+
+:imagesdir: {{imagesdir}}
+
+:numbered:
+
+{{templates}}
+{{.}}
+{{/templates}}
