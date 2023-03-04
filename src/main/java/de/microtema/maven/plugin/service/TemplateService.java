@@ -54,7 +54,7 @@ public class TemplateService {
 
     private void qualityRequirementsTemplate(StringBuilder content, ProjectData projectData) {
 
-        if(!projectData.isSourceCode()) {
+        if (!projectData.isSourceCode()) {
             return;
         }
 
