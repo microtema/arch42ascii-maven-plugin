@@ -16,4 +16,6 @@ public class ProjectData {
     private String sonarLogin;
 
     private String artifactId;
+
+    private boolean sourceCode;
 }

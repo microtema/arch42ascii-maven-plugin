@@ -54,6 +54,10 @@ public class TemplateService {
 
     private void qualityRequirementsTemplate(StringBuilder content, ProjectData projectData) {
 
+        if(!projectData.isSourceCode()) {
+            return;
+        }
+
         String sonarHostUrl = projectData.getSonarHostUrl();
 
         if (Objects.isNull(sonarHostUrl)) {

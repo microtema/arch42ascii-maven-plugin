@@ -31,4 +31,9 @@ public class MojoUtil {
 
         return str.toString();
     }
+
+    public static boolean hasSourceDoce(File basedir) {
+
+        return new File(basedir, "src").exists();
+    }
 }

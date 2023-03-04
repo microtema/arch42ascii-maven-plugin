@@ -4,6 +4,7 @@ import de.microtema.maven.plugin.model.Arch42Template;
 import de.microtema.maven.plugin.model.ProjectData;
 import de.microtema.maven.plugin.service.Arch42Service;
 import de.microtema.maven.plugin.service.TemplateService;
+import de.microtema.maven.plugin.util.MojoUtil;
 import de.microtema.model.converter.util.ClassUtil;
 import lombok.SneakyThrows;
 import org.apache.maven.plugin.AbstractMojo;
@@ -49,6 +50,7 @@ public class Arch42AsciiGeneratorMojo extends AbstractMojo {
 
         projectData.setOutputFile(outputFile);
         projectData.setImageDir(imagesDir);
+        projectData.setSourceCode(MojoUtil.hasSourceDoce(project.getBasedir()));
 
         List<Arch42Template> templates = arch42Service.getTemplates();
         List<Arch42Template> availableTemplates = arch42Service.getAvailableTemplates(inputDir);
