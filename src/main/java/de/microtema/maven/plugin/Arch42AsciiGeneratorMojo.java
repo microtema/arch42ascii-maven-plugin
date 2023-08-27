@@ -1,12 +1,12 @@
 package de.microtema.maven.plugin;
 
+import de.microtema.maven.plugin.converter.FileToArch42TemplateConverter;
 import de.microtema.maven.plugin.model.Arch42Template;
 import de.microtema.maven.plugin.model.ProjectData;
 import de.microtema.maven.plugin.service.Arch42Service;
 import de.microtema.maven.plugin.service.TemplateService;
 import de.microtema.maven.plugin.util.MojoUtil;
 import de.microtema.model.converter.util.ClassUtil;
-import lombok.SneakyThrows;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -32,10 +32,12 @@ public class Arch42AsciiGeneratorMojo extends AbstractMojo {
     @Parameter(property = "inputDir", required = true)
     String inputDir = "./docs";
 
-    Arch42Service arch42Service = ClassUtil.createInstance(Arch42Service.class);
-    TemplateService templateService = ClassUtil.createInstance(TemplateService.class);
+    @Parameter(property = "secure", required = true)
+    boolean secure = false;
 
-    @SneakyThrows
+    Arch42Service arch42Service = new Arch42Service(new FileToArch42TemplateConverter());
+    TemplateService templateService = new TemplateService();
+
     public void execute() {
 
         String appName = Optional.ofNullable(project.getName()).orElse(project.getArtifactId());
@@ -50,7 +52,8 @@ public class Arch42AsciiGeneratorMojo extends AbstractMojo {
 
         projectData.setOutputFile(outputFile);
         projectData.setImageDir(imagesDir);
-        projectData.setSourceCode(MojoUtil.hasSourceDoce(project.getBasedir()));
+        projectData.setSourceCode(MojoUtil.hasSourceCode(project.getBasedir()));
+        projectData.setSecure(secure);
 
         List<Arch42Template> templates = arch42Service.getTemplates();
         List<Arch42Template> availableTemplates = arch42Service.getAvailableTemplates(inputDir);

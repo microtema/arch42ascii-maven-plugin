@@ -3,10 +3,10 @@ package de.microtema.maven.plugin.service;
 import de.microtema.maven.plugin.model.Arch42Template;
 import de.microtema.maven.plugin.model.ProjectData;
 import de.microtema.maven.plugin.util.MojoUtil;
-import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Objects;
@@ -37,8 +37,14 @@ public class TemplateService {
 
             if (Objects.nonNull(availableTemplate)) {
 
-                content.append("include::").append(availableTemplate.getFileName()).append("[]")
-                        .append(MojoUtil.lineSeparator(2));
+                if (projectData.isSecure()) {
+
+                    content.append(importTemplate(availableTemplate.getFileName()))
+                            .append(MojoUtil.lineSeparator(2));
+                } else {
+                    content.append("include::").append(availableTemplate.getFileName()).append("[]")
+                            .append(MojoUtil.lineSeparator(2));
+                }
 
             } else {
                 content.append("== ").append(template.getTitle())
@@ -50,6 +56,15 @@ public class TemplateService {
 
 
         return content.toString();
+    }
+
+    private String importTemplate(String templateFileName) {
+
+        try {
+            return FileUtils.readFileToString(new File(templateFileName), Charset.defaultCharset());
+        } catch (IOException e) {
+            return templateFileName;
+        }
     }
 
     private void qualityRequirementsTemplate(StringBuilder content, ProjectData projectData) {
@@ -77,10 +92,13 @@ public class TemplateService {
                 .append(MojoUtil.lineSeparator(2));
     }
 
-    @SneakyThrows
     public void writeFile(String outputFilePath, String fileContent) {
 
         File outputFile = new File(outputFilePath);
-        FileUtils.writeStringToFile(outputFile, fileContent, Charset.defaultCharset());
+        try {
+            FileUtils.writeStringToFile(outputFile, fileContent, Charset.defaultCharset());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

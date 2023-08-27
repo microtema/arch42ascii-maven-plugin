@@ -1,11 +1,7 @@
 package de.microtema.maven.plugin.util;
 
-import lombok.experimental.UtilityClass;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
 
-@UtilityClass
 public class MojoUtil {
 
     public static String getPackageDirectory(String packageName) {
@@ -32,7 +28,7 @@ public class MojoUtil {
         return str.toString();
     }
 
-    public static boolean hasSourceDoce(File basedir) {
+    public static boolean hasSourceCode(File basedir) {
 
         return new File(basedir, "src").exists();
     }

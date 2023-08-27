@@ -2,7 +2,6 @@ package de.microtema.maven.plugin.service;
 
 import de.microtema.maven.plugin.converter.FileToArch42TemplateConverter;
 import de.microtema.maven.plugin.model.Arch42Template;
-import lombok.RequiredArgsConstructor;
 
 import java.io.File;
 import java.util.Collections;
@@ -12,10 +11,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@RequiredArgsConstructor
 public class Arch42Service {
 
     private final FileToArch42TemplateConverter fileToArch42TemplateConverter;
+
+    public Arch42Service(FileToArch42TemplateConverter fileToArch42TemplateConverter) {
+        this.fileToArch42TemplateConverter = fileToArch42TemplateConverter;
+    }
 
     public List<Arch42Template> getAvailableTemplates(String docsDir) {
 
